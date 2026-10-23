@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DayTracker</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <!-- Top navigation -->
+        <header class="topbar">
+            <a class="brand" href="/">DayTracker</a>
+
+            <div class="topbar-right">
+                <span id="userDisplay"></span>
+
+                <button
+                    id="logoutButton"
+                    class="secondary-button hidden"
+                    type="button"
+                >
+                    Log out
+                </button>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- Login and registration -->
+            <section id="authSection" class="auth-card">
+
+                <p class="eyebrow">
+                    YOUR PERSONAL PRODUCTIVITY SPACE
+                </p>
+
+                <h1 id="authTitle">Welcome back</h1>
+
+                <p id="authDescription">
+                    Log in to continue tracking your day.
+                </p>
+
+                <div class="auth-tabs">
+                    <button
+                        id="loginTab"
+                        class="auth-tab active"
+                        type="button"
+                    >
+                        Log in
+                    </button>
+
+                    <button
+                        id="registerTab"
+                        class="auth-tab"
+                        type="button"
+                    >
+                        Create account
+                    </button>
+                </div>
+
+                <form id="authForm">
+                    <label for="username">Username</label>
+
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[A-Za-z0-9_]{3,30}"
+                        autocomplete="username"
+                        placeholder="Choose a username"
+                        required
+                    >
+
+                    <label for="password">Password</label>
+
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        minlength="8"
+                        maxlength="72"
+                        autocomplete="current-password"
+                        placeholder="At least 8 characters"
+                        required
+                    >
+
+                    <button
+                        id="authSubmit"
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Log in
+                    </button>
+
+                    <p
+                        id="authMessage"
+                        class="message"
+                        role="status"
+                    ></p>
+                </form>
+            </section>
+
+            <!-- Main dashboard -->
+            <section id="dashboardSection" class="hidden">
+
+                <!-- Welcome section -->
+                <div class="welcome-section">
+                    <p class="eyebrow">YOUR DAILY OVERVIEW</p>
+
+                    <h1>Make today count.</h1>
+
+                    <p id="todayDate"></p>
+                </div>
+
+                <!-- Task statistics -->
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <p>Total tasks</p>
+                        <h2 id="totalTasks">0</h2>
+                    </article>
+
+                    <article class="stat-card">
+                        <p>Completed</p>
+                        <h2 id="completedTasks">0</h2>
+                    </article>
+
+                    <article class="stat-card">
+                        <p>Remaining</p>
+                        <h2 id="remainingTasks">0</h2>
+                    </article>
+
+                </div>
+
+                <!-- Daily progress -->
+                <section class="progress-card">
+
+                    <div class="progress-heading">
+                        <h2>Today's progress</h2>
+                        <strong id="progressPercent">0%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div
+                            id="progressBar"
+                            class="progress-fill"
+                        ></div>
+                    </div>
+
+                    <p>Every completed task moves you forward.</p>
+
+                </section>
+
+                <!-- Today's tasks -->
+                <section class="tasks-card">
+
+                    <div class="tasks-heading">
+                        <div>
+                            <h2>Today's tasks</h2>
+
+                            <p id="taskCountLabel">
+                                Your daily checklist
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Add task form -->
+                    <form id="taskForm" class="task-form">
+
+                        <input
+                            id="taskInput"
+                            type="text"
+                            maxlength="120"
+                            placeholder="What do you want to accomplish?"
+                            required
+                        >
+
+                        <select
+                            id="taskPriority"
+                            aria-label="Task priority"
+                        >
+                            <option value="low">Low priority</option>
+
+                            <option value="medium" selected>
+                                Medium priority
+                            </option>
+
+                            <option value="high">High priority</option>
+                        </select>
+
+                        <input
+                            id="taskDueDate"
+                            type="date"
+                            aria-label="Task due date"
+                            title="Optional due date"
+                        >
+
+                        <button
+                            class="primary-button"
+                            type="submit"
+                        >
+                            Add task
+                        </button>
+
+                    </form>
+
+                    <!-- Today's task messages -->
+                    <p
+                        id="taskMessage"
+                        class="message"
+                        role="status"
+                    ></p>
+
+                    <p
+                        id="emptyMessage"
+                        class="empty-message"
+                    >
+                        No tasks yet. Add your first task to get started.
+                    </p>
+
+                    <!-- Today's tasks are rendered here -->
+                    <ul id="taskList" class="task-list"></ul>
+
+                </section>
+
+                <!-- Task History -->
+                <section class="tasks-card history-card">
+
+                    <div class="tasks-heading">
+                        <div>
+                            <h2>Task History</h2>
+
+                            <p>
+                                Review tasks from previous days.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Select a date -->
+                    <div class="history-controls">
+
+                        <label for="historyDate">
+                            Choose a date
+                        </label>
+
+                        <input
+                            id="historyDate"
+                            type="date"
+                            required
+                        >
+
+                        <button
+                            id="historyButton"
+                            class="primary-button"
+                            type="button"
+                        >
+                            View tasks
+                        </button>
+
+                    </div>
+
+                    <!-- History messages -->
+                    <p
+                        id="historyMessage"
+                        class="message"
+                        role="status"
+                    ></p>
+
+                    <p
+                        id="historyEmptyMessage"
+                        class="empty-message hidden"
+                    >
+                        No tasks found for this date.
+                    </p>
+
+                    <!-- Historical tasks are rendered here -->
+                    <ul
+                        id="historyTaskList"
+                        class="task-list"
+                    ></ul>
+
+                </section>
+
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            DayTracker · One day at a time.
+        </footer>
+
+    </div>
+</body>
+</html>

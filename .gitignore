@@ -1,0 +1,6 @@
+.env
+node_modules/
+daytracker.db
+daytracker.db-shm
+daytracker.db-wal
+*.bak
