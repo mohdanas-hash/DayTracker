@@ -2,7 +2,7 @@
 # DayTracker
 
 DayTracker is a personal productivity web application for managing daily tasks and tracking progress. People can use to track their daily life.
-It is updated with lots of new features and lots of new UI.
+It is updated with lots of new features and lots of new UI. I'm making it more efficient and reliable for more productive task.
 
 ## Features
 
